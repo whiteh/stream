@@ -1,0 +1,42 @@
+version: '2'
+services:
+  kafka:
+    image: spotify/kafka
+    hostname: kafka
+    environment:
+       ADVERTISED_HOST: kafka
+       ADVERTISED_PORT: 9092
+       CONSUMER_THREADS: 1
+    expose:
+      - 2181
+      - 9092
+    ports:
+      - 2181:2181
+      - 9092:9092
+    volumes:
+      - ./kafka/config:/conf
+
+  flume:
+    build: ./flume
+    hostname: flume
+    links:
+      - kafka
+    volumes:
+      - ./flume/data:/data
+
+
+  twitter-stream:
+    build: ./twitter-producer
+    hostname: twitter-producer
+    links:
+      - kafka
+    depends_on:
+      - kafka
+    environment:
+      PYTHONUNBUFFERED: 1
+      kafka_server: kafka
+      twitter_consumer_key: CONSUMER_KEY
+      twitter_consumer_secret: CONSUMER_SECRET
+      twitter_access_token: ACCESS_TOKEN
+      twitter_access_token_secret: ACCESS_TOKEN_SECRET
+      kafka_topic: twitter-stream
