@@ -40,7 +40,7 @@ print "connected to %s" % (KAFKA_SERVER)
 class StdOutListener(StreamListener):
     def on_data(self, data):
         producer.send_messages(KAFKA_TOPIC, data.encode('utf-8'))
-        print json.loads(data).keys()
+        #print json.loads(data).keys()
         return True
 
     def on_error(self, status):

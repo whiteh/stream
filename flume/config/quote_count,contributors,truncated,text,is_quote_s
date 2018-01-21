@@ -1,0 +1,16 @@
+quote_count,contributors,truncated,text,is_quote_status,in_reply_to_status_id,reply_count,id,favorite_count,entities,retweeted,coordinates,timestamp_ms,source,in_reply_to_screen_name,id_str,retweet_count,in_reply_to_user_id,favorited,retweeted_status,user,geo,in_reply_to_user_id_str,lang,created_at,filter_level,in_reply_to_status_id_str,place
+
+
+
+
+
+
+  CREATE TABLE tweets (
+      id STRING,
+      u STRING,
+      created_at STRING
+      )
+  CLUSTERED BY(u) INTO 256 BUCKETS
+  STORED AS ORC
+  LOCATION '/ingest/tweets'
+  TBLPROPERTIES ("transactional"="true");
