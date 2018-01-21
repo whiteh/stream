@@ -22,4 +22,7 @@ COPY start-spark-jupyter.sh ./
 
 EXPOSE 8888
 
+RUN wget -P jars http://central.maven.org/maven2/org/apache/spark/spark-streaming-kafka-0-8-assembly_2.11/2.2.1/spark-streaming-kafka-0-8-assembly_2.11-2.2.1.jar
+RUN wget -P jars http://central.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.11/2.2.1/spark-sql-kafka-0-10_2.11-2.2.1.jar
+
 CMD ["/bin/bash", "./start-spark-jupyter.sh"] 
